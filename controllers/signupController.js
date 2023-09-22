@@ -1,23 +1,14 @@
-const express = require('express');
-const router = express.Router();
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 const saltRounds = 10;
 
 
-const Signup = async (req, res, next) => {
+const signup = async (req, res, next) => {
     try {
-      const { email, password, name } = req.body;
+      const { username, password } = req.body;
   
-      if (email === "" || password === "" || name === "") {
-        res.status(400).json({ message: "Provide email, password and name" });
-        return;
-      }
-  
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailRegex.test(email)) {
-        res.status(400).json({ message: "Provide a valid email address." });
+      if (username === "" || password === "") {
+        res.status(400).json({ message: "Provide username and password" });
         return;
       }
   
@@ -30,7 +21,7 @@ const Signup = async (req, res, next) => {
         return;
       }
   
-      const foundUser = await User.findOne({ email });
+      const foundUser = await User.findOne({ username });
   
       if (foundUser) {
         res.status(400).json({ message: "User already exists." });
@@ -40,11 +31,11 @@ const Signup = async (req, res, next) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
   
-      const createdUser = await User.create({ email, password: hashedPassword, name });
+      const createdUser = await User.create({ username, password: hashedPassword });
   
       const { _id } = createdUser;
   
-      const user = { email, name, _id };
+      const user = { username, _id };
   
       res.status(201).json({ user });
     } catch (error) {
@@ -54,5 +45,5 @@ const Signup = async (req, res, next) => {
   
 
 module.exports = {
-    Signup
+    signup
 }
