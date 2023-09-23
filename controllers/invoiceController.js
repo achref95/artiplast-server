@@ -3,6 +3,7 @@ const Invoice = require('../models/Invoice.model');
 const generateInvoice = async (req, res, next) => {
     try {
         const { product, price, quantity } = req.body
+        console.log(product)
         if (product === "" || price === ""|| quantity === "") {
             return res.status(400).json({ message: "Provide product, price and quantity." });
           }

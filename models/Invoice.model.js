@@ -2,21 +2,16 @@ const { Schema, model } = require("mongoose");
 
 const invoiceSchema = new Schema(
   { 
-    // invoice_number: {
-    //   type: String,
-    //   unique: true
-    // },
     product: {
-      type: String,
+      type: [String],
       required: true,
-      // unique: true
     },
     price: {
-      type: Number,
+      type: [Number],
       required: true
     },
     quantity: {
-      type: Number,
+      type: [Number],
       required: true,
     },
 
