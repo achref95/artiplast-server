@@ -28,19 +28,24 @@ const getInvoice = async (req, res, next ) => {
 
 const deleteInvoice = async (req, res, next) => {
     try {
-        const { _id } = req.body
-        if (!_id) {
-            return res.status(400).json({message : "invoice id not recieved"})
-        }
-        if (!deleteInv) {
-            return res.status(400).json({message : "No invoices found"})
-        }
-        const deleteInv = await Invoice.findByIdAndRemove(_id)
-        return res.status(200).json({ message: "invoice deleted"})
+      const { _id } = req.body;
+  
+      if (!_id) {
+        return res.status(400).json({ message: "Invoice id not received" });
+      }
+  
+      const deletedInv = await Invoice.findByIdAndRemove(_id);
+  
+      if (!deletedInv) {
+        return res.status(400).json({ message: "No invoice found with this id" });
+      }
+  
+      return res.status(200).json({ message: "Invoice deleted" });
     } catch (error) {
-        console.log(error)
+      console.error(error);
     }
-};
+  };
+  
 
 module.exports = {
     generateInvoice,
