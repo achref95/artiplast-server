@@ -3,10 +3,13 @@ const router = express.Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const { 
         generateInvoice,
-        getInvoice
+        getInvoice,
+        deleteInvoice
         } = require("../controllers/invoiceController");
 
-router.post("/generate", isAuthenticated, generateInvoice);
 router.get("/get", isAuthenticated, getInvoice);
+router.post("/generate", isAuthenticated, generateInvoice);
+router.delete("/delete", isAuthenticated, deleteInvoice);
+
 
 module.exports = router;
