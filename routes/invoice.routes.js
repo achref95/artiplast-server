@@ -9,7 +9,7 @@ const {
 
 router.get("/get", isAuthenticated, getInvoice);
 router.post("/generate", isAuthenticated, generateInvoice);
-router.delete("/delete", isAuthenticated, deleteInvoice);
+router.delete("/delete/:_id", isAuthenticated, deleteInvoice);
 
 
 module.exports = router;

@@ -28,7 +28,7 @@ const getInvoice = async (req, res, next ) => {
 
 const deleteInvoice = async (req, res, next) => {
     try {
-      const { _id } = req.body;
+      const { _id } = req.params;
   
       if (!_id) {
         return res.status(400).json({ message: "Invoice id not received" });
