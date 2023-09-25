@@ -2,12 +2,12 @@ const Invoice = require('../models/Invoice.model');
 
 const generateInvoice = async (req, res, next) => {
     try {
-        const { product, price, quantity } = req.body
-        console.log(product)
-        if (product === "" || price === ""|| quantity === "") {
-            return res.status(400).json({ message: "Provide product, price and quantity." });
+        const { client, product, price, quantity } = req.body
+        console.log(client, product, price, quantity)
+        if (client === "" || product === "" || price === ""|| quantity === "") {
+            return res.status(400).json({ message: "Provide client, product, price and quantity." });
           }
-        await Invoice.create({product, price, quantity })
+        await Invoice.create({client, product, price, quantity })
         return res.status(200).json({ message: "invoice created and stored"})
     } catch (error) {
         console.log(error)
