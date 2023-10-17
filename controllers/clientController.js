@@ -40,8 +40,23 @@ const clientPopulate = async (req, res, next) => {
       }
 }
 
+// const createClient = async (req, res, next) => {
+//     try {
+//         const { name } = req.body
+//         const foundClient = Client.findOne({name})
+//         if (foundClient) {
+//             return res.status(409).json({message:"Client already exists"});
+//         }
+//         await Client.create({name})
+//         return res.status(201).json({ message: "Client added successfully", name: name });
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
 module.exports = {
     getClient,
     getClientSuggestions,
     clientPopulate,
+    // createClient,
 }

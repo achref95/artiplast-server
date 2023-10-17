@@ -8,7 +8,7 @@ const {
         } = require("../controllers/invoiceController");
 
 router.get("/get", isAuthenticated, getInvoice);
-router.post("/generate", isAuthenticated, generateInvoice);
+router.post("/generate", generateInvoice);
 router.delete("/delete/:_id", isAuthenticated, deleteInvoice);
 
 

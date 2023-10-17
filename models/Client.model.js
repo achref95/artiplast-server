@@ -6,11 +6,10 @@ const clientSchema = new Schema(
       type: String,
       required: true
     },
-    invoice: {
+    invoices: [{
       type: Schema.Types.ObjectId,
-      required: true,
-      ref: "Invoice"
-    },
+      ref: 'Invoice'
+    }]
 
   },
   {
