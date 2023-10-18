@@ -15,7 +15,7 @@ const generateInvoice = async (req, res, next) => {
     const newInvoice = new Invoice({
       products: products,
       price: price,
-      quantity: quantity,
+      quantity: quantity
   
     });
 
