@@ -1,22 +1,26 @@
 const Invoice = require('../models/Invoice.model');
-const Client = require('../models/Client.model')
+const Client = require('../models/Client.model');
+const Product = require('../models/Product.model');
 
 const generateInvoice = async (req, res, next) => {
   try {
     const { name, products, price, quantity } = req.body;
 
-    if (!name || !products) {
+    if (!name || !products || !Array.isArray(products)) {
       return res.status(400).json({ message: "Invalid input. Please provide valid name and products array." });
     }
 
+    // Find the product IDs corresponding to the product names
+    const productIds = await Product.find({ product: { $in: products } }).select('_id');
+
+    // Extract the product IDs from the result
+    const productIdsArray = productIds.map(product => product._id);
+
     // Create the invoice with the provided products
-
-
     const newInvoice = new Invoice({
-      products: products,
+      products: productIdsArray,
       price: price,
       quantity: quantity
-  
     });
 
     await newInvoice.save();
