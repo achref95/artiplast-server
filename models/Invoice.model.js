@@ -2,6 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const invoiceSchema = new Schema(
   { 
+    invoiceNumber: {
+      type: String,
+      required: true,
+      unique: true
+    },
     products: {
       type: [Schema.Types.ObjectId],
       required: true,
@@ -19,6 +24,7 @@ const invoiceSchema = new Schema(
       type: [Number],
     },
     //total
+    //TVA
   },
   {
     timestamps: true,

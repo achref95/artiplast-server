@@ -1,7 +1,6 @@
-const Invoice = require('../models/Invoice.model');
 const Client = require('../models/Client.model');
 
-const getClientSuggestions = async (req, res, next) => {
+const getClients = async (req, res, next) => {
     try {
         // Fetch distinct client names from your database
         const clients = await Client.find();
@@ -15,19 +14,6 @@ const getClientSuggestions = async (req, res, next) => {
     }
 };
 
-const clientPopulate = async (req, res, next) => {
-    try {
-        // Fetch all invoices with their associated clients from your MongoDB database
-        const clientsWithInvoices = await Invoice.find({}).populate("client");
-        res.json(clientsWithInvoices);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal Server Error" });
-      }
-}
-
-
 module.exports = {
-    getClientSuggestions,
-    clientPopulate,
+    getClients,
 }
