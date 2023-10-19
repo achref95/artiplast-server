@@ -19,8 +19,25 @@ const createProduct = async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
-}
+};
+
+const getProduct = async (req, res, next) => {
+    try {
+        const getAllProducts = await Product.find().select("product");
+
+        if (!getAllProducts) {
+            return res.status(404).json({message: "No products found"})
+        }
+
+        const result = getAllProducts.map((product) => (product.product))
+        console.log(result)
+        return res.status(200).json({products: result});
+    } catch (error) {
+        console.log(error)
+    }
+};
 
 module.exports = {
-    createProduct
+    createProduct,
+    getProduct
 }
