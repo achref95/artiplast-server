@@ -6,6 +6,10 @@ const clientSchema = new Schema(
       type: String,
       required: true
     },
+    taxNumber: {
+      type: String,
+      required: true
+    },
     invoices: [{
       type: Schema.Types.ObjectId,
       ref: 'Invoice'
