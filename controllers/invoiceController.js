@@ -22,6 +22,10 @@ const generateInvoice = async (req, res, next) => {
 
     // Find the product IDs corresponding to the product names
     const productIds = await Product.find({ product: { $in: products } }).select('_id');
+    
+    if (productIds.length === 0) {
+      return res.status(404).json({message: "This Product does not exist, please add it in the add product page"})
+    }
 
     // Extract the product IDs from the result
     const productIdsArray = productIds.map(product => product._id);
