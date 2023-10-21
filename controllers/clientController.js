@@ -5,14 +5,31 @@ const getClients = async (req, res, next) => {
         // Fetch distinct client names from your database
         const clients = await Client.find();
         console.log(clients)
-        const clientNames = clients.map(client => client.name);
+        const clientNames = clients.map(client => ({
+            name: client.name,
+            taxNumber: client.taxNumber
+        }));
 
-        return res.status(200).json({ clients: clientNames });  
+        return res.status(200).json({ clientsData: clientNames });  
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+const getAll = async (req, res, next) => {
+    try {
+        // Fetch distinct client names from your database
+        const clients = await Client.find();
+        console.log(clients)
+        const names = clients.map(client => client.name);
+
+        return res.status(200).json({ clients: names });  
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
 
 const addClient = async (req, res, next) => {
     try {
@@ -33,4 +50,5 @@ const addClient = async (req, res, next) => {
 module.exports = {
     getClients,
     addClient,
+    getAll,
 }
