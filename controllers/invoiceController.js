@@ -7,7 +7,7 @@ const generateInvoice = async (req, res, next) => {
     const { name, products, price, quantity } = req.body;
 
     const generateInvoiceNumber = () => {
-      const prefix = "FAC N°:"; // Static prefix for the invoice number
+      const prefix = "Facture N°"; // Static prefix for the invoice number
       const currentDate = new Date();
       const timestamp = currentDate.getFullYear(); // Current timestamp in milliseconds
       const randomDigits = Math.floor(Math.random() * 1000).toString().padStart(3, "0"); // Random 3-digit number
@@ -53,7 +53,7 @@ const generateInvoice = async (req, res, next) => {
       return res.status(200).json({ message: "Invoice created and associated with the new client.", client: createdClient });
     }
 
-    return res.status(200).json({ message: "Invoice created and associated with the existing client.", client: existingClient });
+    return res.status(200).json({ message: "Invoice created and associated with the existing client.", client: existingClient, invoiceNumber: invoiceNumber });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
