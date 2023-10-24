@@ -12,7 +12,7 @@ const generateInvoice = async (req, res, next) => {
       const timestamp = currentDate.getFullYear(); // Current timestamp in milliseconds
       const randomDigits = Math.floor(Math.random() * 1000).toString().padStart(3, "0"); // Random 3-digit number
     
-      return `${prefix}-${timestamp}-${randomDigits}`;
+      return `${prefix} ${timestamp}${randomDigits}`;
     };
     const invoiceNumber = generateInvoiceNumber();
 
