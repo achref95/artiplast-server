@@ -50,7 +50,7 @@ const generateInvoice = async (req, res, next) => {
     if (!existingClient) {
       // If the client does not exist, create a new client and associate the invoice with it
       const createdClient = await Client.create({ name: name, invoices: [newInvoice._id] });
-      return res.status(200).json({ message: "Invoice created and associated with the new client.", client: createdClient });
+      return res.status(200).json({ message: "Invoice created and associated with the new client.", client: createdClient, invoiceNumber: invoiceNumber  });
     }
 
     return res.status(200).json({ message: "Invoice created and associated with the existing client.", client: existingClient, invoiceNumber: invoiceNumber });

@@ -8,7 +8,10 @@ const clientSchema = new Schema(
     },
     taxNumber: {
       type: String,
-      required: true
+      // required: true
+    },
+    adress: {
+      type: String,
     },
     invoices: [{
       type: Schema.Types.ObjectId,
