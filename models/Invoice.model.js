@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const invoiceSchema = new Schema(
   { 
     invoiceNumber: {
-      type: String,
+      type: Number,
       required: true,
       unique: true
     },

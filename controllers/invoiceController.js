@@ -6,15 +6,15 @@ const generateInvoice = async (req, res, next) => {
   try {
     const { name, products, price, quantity } = req.body;
 
-    const generateInvoiceNumber = () => {
-      const prefix = "Facture N°"; // Static prefix for the invoice number
-      const currentDate = new Date();
-      const timestamp = currentDate.getFullYear(); // Current timestamp in milliseconds
-      const randomDigits = Math.floor(Math.random() * 1000).toString().padStart(3, "0"); // Random 3-digit number
+    // const generateInvoiceNumber = () => {
+    //   const prefix = "Facture N°"; // Static prefix for the invoice number
+    //   const currentDate = new Date();
+    //   const timestamp = currentDate.getFullYear(); // Current timestamp in milliseconds
+    //   const randomDigits = Math.floor(Math.random() * 1000).toString().padStart(3, "0"); // Random 3-digit number
     
-      return `${prefix} ${timestamp}${randomDigits}`;
-    };
-    const invoiceNumber = generateInvoiceNumber();
+    //   return `${prefix} ${timestamp}${randomDigits}`;
+    // };
+    // const invoiceNumber = generateInvoiceNumber();
 
     if (!name || !products || !Array.isArray(products)) {
       return res.status(400).json({ message: "Invalid input. Please provide valid name and products array." });
@@ -29,6 +29,12 @@ const generateInvoice = async (req, res, next) => {
 
     // Extract the product IDs from the result
     const productIdsArray = productIds.map(product => product._id);
+
+    //new code
+    const latestInvoice = await Invoice.findOne().sort({ createdAt: -1 }).select('invoiceNumber');
+    const latestInvoiceNumber = latestInvoice ? latestInvoice.invoiceNumber : 9999;
+    const nextInvoiceNumber = latestInvoiceNumber + 1;
+    const invoiceNumber = `${nextInvoiceNumber}`;
 
     // Create the invoice with the provided products
     const newInvoice = new Invoice({
