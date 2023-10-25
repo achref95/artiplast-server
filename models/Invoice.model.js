@@ -23,8 +23,11 @@ const invoiceSchema = new Schema(
     discount: {
       type: [Number],
     },
+    tva: {
+      type: [Number],
+    },
     //total
-    //TVA
+
   },
   {
     timestamps: true,
