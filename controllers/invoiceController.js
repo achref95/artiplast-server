@@ -4,7 +4,7 @@ const Product = require('../models/Product.model');
 
 const generateInvoice = async (req, res, next) => {
   try {
-    const { name, products, price, quantity, discount, tva } = req.body;
+    const { name, products, price, quantity, discount, timbre, tva } = req.body;
 
     if (!name || !products || !Array.isArray(products)) {
       return res.status(400).json({ message: "Invalid input. Please provide valid name and products array." });
@@ -34,6 +34,7 @@ const generateInvoice = async (req, res, next) => {
       quantity: quantity,
       discount: discount,
       tva: tva,
+      timbre: timbre,
     });
 
     await newInvoice.save();
