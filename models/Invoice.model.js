@@ -26,6 +26,12 @@ const invoiceSchema = new Schema(
     tva: {
       type: [Number],
     },
+    timbre: {
+      type: Number,
+    },
+    observation: {
+      type: String,
+    },
     //total
 
   },
