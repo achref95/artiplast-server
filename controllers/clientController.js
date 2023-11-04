@@ -36,22 +36,30 @@ const getAll = async (req, res, next) => {
 
 const clientDetail = async (req, res, next) => {
     try {
-        const {clientId} = req.params;
-    
-        // Find the client by ID in the database
-        const client = await Client.findById(clientId);
-    
-        if (!client) {
-          return res.status(400).json({ message: 'Client not found' });
-        }
-    
-        // Return the client details
-        return res.status(200).json({ client });
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal Server Error' });
+      const { clientId } = req.params;
+  
+      const client = await Client.findById(clientId);
+  
+      if (!client) {
+        return res.status(400).json({ message: 'Client not found' });
       }
-}
+  
+      // Fetch invoice numbers separately
+      const invoiceNumbers = await Client.findById(clientId)
+        .populate({
+          path: 'invoices',
+          model: 'Invoice',
+          select: 'invoiceNumber', // Select only the invoice numbers
+        })
+        .select('invoices');
+  
+      return res.status(200).json({ client: client, invoiceNumbers: invoiceNumbers.invoices });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+  
 
 const addClient = async (req, res, next) => {
     try {
