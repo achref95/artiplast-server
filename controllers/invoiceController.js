@@ -73,6 +73,20 @@ const getInvoice = async (req, res, next ) => {
     }
 }
 
+const getInvoiceDetail = async (req, res, next) => {
+  try {
+    const { invoiceId } = req.params
+    const invoice = await Invoice.findById(invoiceId)
+
+    if (!invoice) {
+      return res.status(400).json({message: "No invoices found"})
+    }
+    return res.status(200).json({invoice: invoice})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const deleteInvoice = async (req, res, next) => {
     try {
       const { _id } = req.params;
@@ -97,5 +111,6 @@ const deleteInvoice = async (req, res, next) => {
 module.exports = {
     generateInvoice,
     getInvoice,
+    getInvoiceDetail,
     deleteInvoice,
 }

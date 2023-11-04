@@ -5,7 +5,7 @@ const { getClients, addClient, getAll, clientDetail } = require("../controllers/
 
 router.get("/all", isAuthenticated, getAll);
 router.get("/get", isAuthenticated, getClients);
-router.get("/:clientId", clientDetail);
+router.get("/:clientId", isAuthenticated, clientDetail);
 router.post("/add", isAuthenticated, addClient);
 
 
