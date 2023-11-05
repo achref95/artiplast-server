@@ -76,7 +76,7 @@ const getInvoice = async (req, res, next ) => {
 const getInvoiceDetail = async (req, res, next) => {
   try {
     const { invoiceId } = req.params
-    const invoice = await Invoice.findById(invoiceId)
+    const invoice = await Invoice.findById(invoiceId).populate('products', 'product')
 
     if (!invoice) {
       return res.status(400).json({message: "No invoices found"})
