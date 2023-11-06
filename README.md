@@ -120,7 +120,7 @@ Product model
 | GET         | `/auth/verify    `           | jwt token                | 200            | 400          | Check if user is logged in and return user details      |
 | POST        | `/auth/signup`                | {username, password}      | 200         | 400          | Signup new user                      |
 | POST        | `/auth/login`                | {username, password}      | 200          | 400          | Login                      |
-| GET         | `/client/all`                 | {username, password}         | 200            | 400          | Login              |
+| GET         | `/client/all`                 | (empty)         | 200            | 400          | Login              |
 | GET         | `/client/get`             |      (empty)         |     200          |      404       | Get all clients from the database           |
 | GET         | `/client/:clientId`              |            {clientId}                   |     200          |     404         | Get specific client details     |
 | POST        | `/client/add`              |              {name, taxNumber}                |    200     | 404             | Get new client to the database                |
