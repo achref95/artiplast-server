@@ -20,13 +20,6 @@ const getClients = async (req, res, next) => {
 const getAll = async (req, res, next) => {
     try {
         const clients = await Client.find();
-        console.log(clients)
-        // const names = clients.map(client => ({
-        //     _id: client._id,
-        //     name: client.name,
-        //   }));
-
-        // return res.status(200).json({ clients: names });  
         return res.status(200).json({ clients: clients });  
     } catch (error) {
         console.error(error);
