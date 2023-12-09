@@ -8,24 +8,24 @@ const signup = async (req, res, next) => {
       const { username, password } = req.body;
   
       if (username === "" || password === "") {
-        res.status(400).json({ message: "Provide username and password" });
-        return;
+        return res.status(400).json({ message: "Provide username and password" });
+        
       }
   
       const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
       if (!passwordRegex.test(password)) {
-        res.status(400).json({
+        return res.status(400).json({
           message:
             "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
         });
-        return;
+        
       }
   
       const foundUser = await User.findOne({ username });
   
       if (foundUser) {
-        res.status(400).json({ message: "User already exists." });
-        return;
+        return res.status(400).json({ message: "User already exists." });
+        
       }
   
       const salt = bcrypt.genSaltSync(saltRounds);
@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
   
       const user = { username, _id };
   
-      res.status(201).json({ user });
+      return res.status(201).json({ user });
     } catch (error) {
       console.log(error);
     }
